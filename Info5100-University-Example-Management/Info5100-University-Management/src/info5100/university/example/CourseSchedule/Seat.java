@@ -42,4 +42,9 @@ public class Seat {
     public void releaseSeat() {
     seatassignment = null; // Frees the seat
 }
+    // Add to Seat.java
+
+public SeatAssignment getSeatAssignment() {
+    return seatassignment;
+}
 }

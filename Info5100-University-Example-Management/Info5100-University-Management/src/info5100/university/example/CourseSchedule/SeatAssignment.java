@@ -106,4 +106,12 @@ public class SeatAssignment {
         return getCreditHours() * grade;
     }
     
+    /**
+ * Get the course load (student's semester enrollment)
+ * @return CourseLoad that this seat assignment belongs to
+ */
+public CourseLoad getCourseload() {
+    return courseload;
+}
+    
 }
