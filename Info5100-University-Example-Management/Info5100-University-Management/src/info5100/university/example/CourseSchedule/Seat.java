@@ -38,4 +38,8 @@ public class Seat {
     public int getCourseCredits(){
         return courseoffer.getCreditHours();
     }
+    
+    public void releaseSeat() {
+    seatassignment = null; // Frees the seat
+}
 }
