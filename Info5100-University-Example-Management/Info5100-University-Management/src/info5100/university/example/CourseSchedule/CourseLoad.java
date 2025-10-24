@@ -85,6 +85,12 @@ public class CourseLoad {
             return null;
         }
         
+        // Check if enrollment is open for this course
+        if (!courseOffer.isEnrollmentOpen()) {
+        System.out.println("Cannot enroll: Enrollment is closed for this course");
+        return null;
+        }
+        
         // Get empty seat from course offer
         Seat seat = courseOffer.getEmptySeat();
         if (seat == null) {
