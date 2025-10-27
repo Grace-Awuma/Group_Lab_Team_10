@@ -4,17 +4,48 @@
  */
 package UserInterface.StudentRole;
 
+import Business.Business;
+import Business.Profiles.StudentProfile;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Yaksha
  */
 public class StudentRoleWorkAreaJPanel extends javax.swing.JPanel {
 
-    /**
+    private Business business;
+    private StudentProfile student;
+    private JPanel containerPanel;
+    private CourseRegistrationJPanel coursePanel;
+    private TranscriptJPanel transcriptPanel;
+    private StudentFinancialJPanel paymentPanel;
+    private GraduationAuditJPanel graduationPanel;
+       private CourseWorkJPanel courseWorkJPanel;    /**
      * Creates new form StudentRoleWorkAreaJPanel
      */
-    public StudentRoleWorkAreaJPanel() {
+    
+    public StudentRoleWorkAreaJPanel(Business business, StudentProfile student, JPanel containerPanel) {
         initComponents();
+        this.business = business;
+        this.student = student;
+        this.containerPanel = containerPanel;
+        
+        loadStudentPanels();
+        
+          tabStudent.addChangeListener(e -> {
+            int selectedIndex = tabStudent.getSelectedIndex();
+            if (selectedIndex == 0) {
+                coursePanel.refreshPanel();
+            } else if (selectedIndex == 1) {
+                transcriptPanel.refreshPanel();
+            } else if (selectedIndex == 2) {
+                paymentPanel.refreshPanel();
+            } else if (selectedIndex == 3) {
+                graduationPanel.refreshPanel();
+            }
+        });
+    
     }
 
     /**
@@ -27,11 +58,12 @@ public class StudentRoleWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         tabStudent = new javax.swing.JTabbedPane();
-        CourseRegistration = new javax.swing.JTabbedPane();
-        Transcripts = new javax.swing.JTabbedPane();
-        Audits = new javax.swing.JTabbedPane();
-        Financial = new javax.swing.JTabbedPane();
-        Profile = new javax.swing.JTabbedPane();
+        CourseRegistration = new javax.swing.JPanel();
+        Transcripts = new javax.swing.JPanel();
+        Audits = new javax.swing.JPanel();
+        Financial = new javax.swing.JPanel();
+        Profile = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
 
         setLayout(new java.awt.CardLayout());
 
@@ -39,18 +71,58 @@ public class StudentRoleWorkAreaJPanel extends javax.swing.JPanel {
         tabStudent.addTab("Transcripts", Transcripts);
         tabStudent.addTab("Graduation Audits", Audits);
         tabStudent.addTab("Financial", Financial);
-        tabStudent.addTab("My Profile", Profile);
+        tabStudent.addTab("CourseWork", Profile);
+        tabStudent.addTab("My Profile", jPanel1);
 
         add(tabStudent, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane Audits;
-    private javax.swing.JTabbedPane CourseRegistration;
-    private javax.swing.JTabbedPane Financial;
-    private javax.swing.JTabbedPane Profile;
-    private javax.swing.JTabbedPane Transcripts;
+    private javax.swing.JPanel Audits;
+    private javax.swing.JPanel CourseRegistration;
+    private javax.swing.JPanel Financial;
+    private javax.swing.JPanel Profile;
+    private javax.swing.JPanel Transcripts;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane tabStudent;
     // End of variables declaration//GEN-END:variables
+
+    private void loadStudentPanels() {
+tabStudent.removeAll();
+    
+    // Create panels and assign to fields (don't redeclare!)
+    coursePanel = new CourseRegistrationJPanel(
+        student, 
+        business.getCourseOfferDirectory(), 
+        "Fall 2025"
+    );
+    tabStudent.addTab("Course Registration", coursePanel);
+    
+    transcriptPanel = new TranscriptJPanel(student);
+    tabStudent.addTab("Transcript", transcriptPanel);
+    
+    paymentPanel = new StudentFinancialJPanel(student);
+    tabStudent.addTab("Pay Tuition", paymentPanel);
+    
+    graduationPanel = new GraduationAuditJPanel(student);
+    tabStudent.addTab("Graduation Audit", graduationPanel);
+    
+    
+    CourseWorkJPanel courseWorkPanel = new CourseWorkJPanel(student);
+    tabStudent.addTab("CourseWork", courseWorkPanel);
+    
+        
+
+    StudentProfileJPanel profilePanel = new StudentProfileJPanel(student);
+    tabStudent.addTab("My Profile", profilePanel);
+    }
+    
+    public void refreshPanel() {  
+    filterBySemester();
+}
+
+    private void filterBySemester() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
