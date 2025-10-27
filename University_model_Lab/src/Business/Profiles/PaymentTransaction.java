@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author grace
  */
-class PaymentTransaction {
+public class PaymentTransaction {
     private String transactionId;
     private double amount;
     private Date date;

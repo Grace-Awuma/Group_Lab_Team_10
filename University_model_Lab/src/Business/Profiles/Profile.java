@@ -1,13 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ 
 package Business.Profiles;
 
-/**
- *
- * @author Yaksha
- */
-public class Profile {
-    
+import Business.Person.Person;
+
+public abstract class Profile {
+   Person person;
+
+   public Profile(Person p) {
+      this.person = p;
+   }
+
+   public abstract String getRole();
+
+   public Person getPerson() {
+      return this.person;
+   }
+
+   public boolean isMatch(String id) {
+      return this.person.getPersonId().equals(id);
+   }
+
+   public String toString() {
+      String var10000 = this.person.toString();
+      return var10000 + " (" + this.getRole() + ")";
+   }
 }
