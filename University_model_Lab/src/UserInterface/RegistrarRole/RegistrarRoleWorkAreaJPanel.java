@@ -4,17 +4,32 @@
  */
 package UserInterface.RegistrarRole;
 
+import Business.Business;
+import Business.Profiles.RegistrarProfile;
+import javax.swing.JPanel;
+import java.awt.CardLayout;
+
 /**
  *
  * @author Yaksha
  */
 public class RegistrarRoleWorkAreaJPanel extends javax.swing.JPanel {
 
+    private Business business;
+    private RegistrarProfile registrar;
+    private JPanel containerPanel;
+    private CardLayout cardLayout;
+    
     /**
      * Creates new form RegistrarRoleWorkAreaJPanel
      */
-    public RegistrarRoleWorkAreaJPanel() {
+    
+    public RegistrarRoleWorkAreaJPanel(Business business, RegistrarProfile registrar, JPanel containerPanel) {
         initComponents();
+        this.business = business;
+        this.registrar = registrar;
+        this.containerPanel = containerPanel;
+        this.cardLayout = (CardLayout) containerPanel.getLayout();
     }
 
     /**
@@ -26,31 +41,157 @@ public class RegistrarRoleWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabRegistrar = new javax.swing.JTabbedPane();
-        CourseOffering = new javax.swing.JTabbedPane();
-        ManageEnrollment = new javax.swing.JTabbedPane();
-        FinancialReports = new javax.swing.JTabbedPane();
-        Analytics = new javax.swing.JTabbedPane();
-        Profile = new javax.swing.JTabbedPane();
+        btnOfferings = new javax.swing.JButton();
+        btnFinance = new javax.swing.JButton();
+        btnReports = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
+        btnProfile = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        btnReg = new javax.swing.JButton();
 
-        setLayout(new java.awt.CardLayout());
+        btnOfferings.setText("Manage Student Offerings");
+        btnOfferings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOfferingsActionPerformed(evt);
+            }
+        });
 
-        tabRegistrar.addTab("Course Offering", CourseOffering);
-        tabRegistrar.addTab("Manage Enrollment", ManageEnrollment);
-        tabRegistrar.addTab("Financial Reports", FinancialReports);
-        tabRegistrar.addTab("Analytics", Analytics);
-        tabRegistrar.addTab("My Profile", Profile);
+        btnFinance.setText("Finance & Reconciliation");
+        btnFinance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinanceActionPerformed(evt);
+            }
+        });
 
-        add(tabRegistrar, "card2");
+        btnReports.setText("Reports & Analytics");
+        btnReports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportsActionPerformed(evt);
+            }
+        });
+
+        lblTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        lblTitle.setText("Registrar Console");
+
+        btnProfile.setText("My Profile");
+        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        btnReg.setText("Student Registration (admin)");
+        btnReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(btnOfferings, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(238, 238, 238)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFinance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(lblTitle)))
+                .addGap(286, 286, 286))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(lblTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnOfferings)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReg)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFinance)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReports)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnProfile)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogout)
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOfferingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOfferingsActionPerformed
+        // TODO add your handling code here:
+        StudentOfferingJPanel panel = new StudentOfferingJPanel();
+        panel.initialize(business, containerPanel);
+        containerPanel.add(panel, "RegOfferings");
+        cardLayout.show(containerPanel, "RegOfferings");
+    }//GEN-LAST:event_btnOfferingsActionPerformed
+
+    private void btnRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegActionPerformed
+        // TODO add your handling code here:
+        RegisterStudentJPanel panel = new RegisterStudentJPanel();
+        panel.initialize(business, containerPanel);
+        containerPanel.add(panel, "RegStudentReg");
+        cardLayout.show(containerPanel, "RegStudentReg");
+    }//GEN-LAST:event_btnRegActionPerformed
+
+    private void btnFinanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinanceActionPerformed
+        // TODO add your handling code here:
+        FianacialReportJPanel panel = new FianacialReportJPanel();
+        panel.initialize(business, containerPanel);
+        containerPanel.add(panel, "RegFinance");
+        cardLayout.show(containerPanel, "RegFinance");
+    }//GEN-LAST:event_btnFinanceActionPerformed
+
+    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
+        // TODO add your handling code here:
+        ReportsJPanel panel = new ReportsJPanel();
+        panel.initialize(business, containerPanel);
+        containerPanel.add(panel, "RegReports");
+        cardLayout.show(containerPanel, "RegReports");
+    }//GEN-LAST:event_btnReportsActionPerformed
+
+    private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
+        // TODO add your handling code here:
+        RegistrarProfileJPanel panel = new RegistrarProfileJPanel();
+        panel.initialize(registrar, containerPanel);
+        containerPanel.add(panel, "RegProfile");
+        cardLayout.show(containerPanel, "RegProfile");
+    }//GEN-LAST:event_btnProfileActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+
+         cardLayout.show(containerPanel, "login");
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane Analytics;
-    private javax.swing.JTabbedPane CourseOffering;
-    private javax.swing.JTabbedPane FinancialReports;
-    private javax.swing.JTabbedPane ManageEnrollment;
-    private javax.swing.JTabbedPane Profile;
-    private javax.swing.JTabbedPane tabRegistrar;
+    private javax.swing.JButton btnFinance;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnOfferings;
+    private javax.swing.JButton btnProfile;
+    private javax.swing.JButton btnReg;
+    private javax.swing.JButton btnReports;
+    private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }
