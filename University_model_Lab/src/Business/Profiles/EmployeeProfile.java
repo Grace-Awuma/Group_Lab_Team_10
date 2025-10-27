@@ -4,10 +4,20 @@
  */
 package Business.Profiles;
 
+import Business.Person.Person;
+
 /**
  *
  * @author Yaksha
  */
-public class EmployeeProfile {
-    
+public class EmployeeProfile extends Profile {
+
+    public EmployeeProfile(Person p) {
+        super(p);
+    }
+
+    @Override
+    public String getRole() {
+        return "Admin";
+    }
 }
