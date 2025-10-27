@@ -35,16 +35,18 @@ public class StudentRoleWorkAreaJPanel extends javax.swing.JPanel {
         
           tabStudent.addChangeListener(e -> {
             int selectedIndex = tabStudent.getSelectedIndex();
-            if (selectedIndex == 0) {
-                coursePanel.refreshPanel();
-            } else if (selectedIndex == 1) {
-                transcriptPanel.refreshPanel();
-            } else if (selectedIndex == 2) {
-                paymentPanel.refreshPanel();
-            } else if (selectedIndex == 3) {
-                graduationPanel.refreshPanel();
-            }
-        });
+    if (selectedIndex == 0) {
+        coursePanel.refreshPanel();
+    } else if (selectedIndex == 1) {
+        transcriptPanel.refreshPanel();
+    } else if (selectedIndex == 2) {
+        paymentPanel.refreshPanel();
+    } else if (selectedIndex == 3) {
+        graduationPanel.refreshPanel();
+    } else if (selectedIndex == 4) {  // ← CourseWork is tab #4!
+        courseWorkJPanel.refreshPanel();
+    }
+          });
     
     }
 
@@ -109,8 +111,8 @@ tabStudent.removeAll();
     tabStudent.addTab("Graduation Audit", graduationPanel);
     
     
-    CourseWorkJPanel courseWorkPanel = new CourseWorkJPanel(student);
-    tabStudent.addTab("CourseWork", courseWorkPanel);
+    courseWorkJPanel = new CourseWorkJPanel(student);  // ← Use the FIELD, not a local variable!
+    tabStudent.addTab("CourseWork", courseWorkJPanel);
     
         
 

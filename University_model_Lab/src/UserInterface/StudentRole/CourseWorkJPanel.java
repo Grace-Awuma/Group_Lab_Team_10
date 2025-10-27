@@ -31,9 +31,11 @@ public class CourseWorkJPanel extends javax.swing.JPanel {
         
     }
     
-    public void refreshPanel() {
-        loadEnrolledCourses();
-    }
+   public void refreshPanel() {
+    System.out.println("DEBUG: CourseWork refreshPanel() called!");
+    System.out.println("DEBUG: Enrollments count = " + studentProfile.getEnrollments().size());
+    loadEnrolledCourses();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

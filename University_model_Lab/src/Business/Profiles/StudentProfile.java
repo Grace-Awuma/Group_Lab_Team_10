@@ -207,6 +207,22 @@ public boolean makePayment(double amount) {
     // Apply payment
     accountBalance += amount;  // Increase toward 0
     
+    // ✅ CRITICAL: Record the payment in history
+    String transactionId = "PAY-" + System.currentTimeMillis();
+    Date now = new Date();
+    double newBalance = accountBalance;
+    String description = "Tuition Payment";
+    
+    PaymentTransaction payment = new PaymentTransaction(
+        transactionId, 
+        amount,  // Positive amount for payment
+        now, 
+        newBalance, 
+        description
+    );
+    
+    paymentHistory.add(payment);  // ← ADD TO HISTORY!
+    
     // Mark courses as paid if balance is now 0 or positive
     if (accountBalance >= 0) {
         for (CourseEnrollment e : enrollments) {
