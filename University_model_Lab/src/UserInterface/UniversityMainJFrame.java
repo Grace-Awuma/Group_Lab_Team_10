@@ -4,8 +4,18 @@
  */
 package UserInterface;
 
+import Business.Business;
+import Business.ConfigureABusiness;
+import Business.UserAccounts.UserAccount;
 import Business.UserAccounts.UserAccountDirectory;
+import Business.Profiles.*;
+import UserInterface.AdminRole.AdminRoleWorkAreaJPanel;
+import UserInterface.FacultyRole.FacultyRoleWorkAreaJPanel;
+import UserInterface.RegistrarRole.RegistrarRoleWorkAreaJPanel;
+import UserInterface.StudentRole.StudentRoleWorkAreaJPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.CardLayout;
 
 /**
  *
@@ -13,11 +23,22 @@ import javax.swing.JOptionPane;
  */
 public class UniversityMainJFrame extends javax.swing.JFrame {
 
+    Business business;
+    private JPanel containerPanel;
+    private CardLayout cardLayout;
+    
     /**
      * Creates new form UniversityMainJFrame
      */
     public UniversityMainJFrame() {
         initComponents();
+        business = ConfigureABusiness.configure();
+        
+        cardLayout = new CardLayout();
+        containerPanel = new JPanel(cardLayout);
+        containerPanel.add(loginPanel, "login");
+        getContentPane().add(containerPanel);
+        cardLayout.show(containerPanel, "login");
     }
 
     /**
@@ -101,9 +122,91 @@ public class UniversityMainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-      
+     String username = txtUsername.getText();
+     String password = txtPassword.getText();
+        
+        // Validate input
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Please enter both username and password!", 
+                "Input Required", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Authenticate user
+        UserAccountDirectory uad = business.getUserAccountDirectory();
+        UserAccount userAccount = uad.authenticateUser(username, password);
+        
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(this, 
+                "Invalid username or password!", 
+                "Login Failed", 
+                JOptionPane.ERROR_MESSAGE);
+            // Clear password field for security
+            txtPassword.setText("");
+            return;
+        }
+        
+        // Get role object
+        Profile roleObj = userAccount.getAssociatedPersonRole();
+        
+        // Remove any existing work area panels
+        if (containerPanel.getComponentCount() > 1) {
+            while (containerPanel.getComponentCount() > 1) {
+                containerPanel.remove(1);
+            }
+        }
+        
+        // Create appropriate work area based on role
+        if (roleObj instanceof EmployeeProfile) {
+            AdminRoleWorkAreaJPanel adminPanel = new AdminRoleWorkAreaJPanel(business, containerPanel);
+            containerPanel.add(adminPanel, "workarea");
+            cardLayout.show(containerPanel, "workarea");
+            JOptionPane.showMessageDialog(this, 
+                "Welcome Admin: " + roleObj.getPerson().getFullName() + "!", 
+                "Login Successful", 
+                JOptionPane.INFORMATION_MESSAGE);
+        } else if (roleObj instanceof RegistrarProfile) {
+            RegistrarProfile registrar = (RegistrarProfile) roleObj;
+            RegistrarRoleWorkAreaJPanel registrarPanel = new RegistrarRoleWorkAreaJPanel(business, registrar, containerPanel);
+            containerPanel.add(registrarPanel, "workarea");
+            cardLayout.show(containerPanel, "workarea");
+            JOptionPane.showMessageDialog(this, 
+                "Welcome Registrar: " + registrar.getPerson().getFullName() + "!", 
+                "Login Successful", 
+                JOptionPane.INFORMATION_MESSAGE);
+        } else if (roleObj instanceof FacultyProfile) {
+            FacultyProfile faculty = (FacultyProfile) roleObj;
+            FacultyRoleWorkAreaJPanel facultyPanel = new FacultyRoleWorkAreaJPanel(business, faculty, containerPanel);
+            containerPanel.add(facultyPanel, "workarea");
+            cardLayout.show(containerPanel, "workarea");
+            JOptionPane.showMessageDialog(this, 
+                "Welcome Faculty: " + faculty.getPerson().getFullName() + "!", 
+                "Login Successful", 
+                JOptionPane.INFORMATION_MESSAGE);
+        } else if (roleObj instanceof StudentProfile) {
+            StudentProfile student = (StudentProfile) roleObj;
+            StudentRoleWorkAreaJPanel studentPanel = new StudentRoleWorkAreaJPanel(business, student, containerPanel);
+            containerPanel.add(studentPanel, "workarea");
+            cardLayout.show(containerPanel, "workarea");
+            JOptionPane.showMessageDialog(this, 
+                "Welcome Student: " + student.getPerson().getFullName() + "!", 
+                "Login Successful", 
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        // Clear login fields
+        txtUsername.setText("");
+        txtPassword.setText("");
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    public void showLoginScreen() {
+        cardLayout.show(containerPanel, "login");
+        txtUsername.setText("");
+        txtPassword.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
